@@ -2,18 +2,18 @@
 * Instructor : Jae-Pil Heo(허재필)
 * Due: 25.10.30(목) 11:59pm
 
+---
 
 ## Part #1. Image Filtering
 
-A1_image_filtering.py
----
+* A1_image_filtering.py
 
 ## Part #2. Edge Detection
 
-A1_edge_detection.py
----
+* A1_edge_detection.py
+
 
 ## Part #3. Corner Detection
 
-A1_corner_detection.py
----
+* A1_corner_detection.py
+
