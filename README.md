@@ -2,7 +2,7 @@
 * Instructor : Jae-Pil Heo(허재필)
 * Due: 25.10.30(목) 11:59pm
 
----
+
 
 ## Part #1. Image Filtering
 A1_image_filtering.py
