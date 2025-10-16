@@ -40,6 +40,8 @@ def cross_correlation_1d(img, kernel):
     kernel = np.asarray(kernel)
     if kernel.ndim == 1:
         kernel = kernel.reshape(1, -1)  # 기본은 horizontal
+    # 2D kernel인 경우 shape을 확인하여 vertical/horizontal 구분
+    # (N, 1) shape는 vertical, (1, N) shape는 horizontal
     return cross_correlation_2d(img, kernel)
 
 
@@ -91,14 +93,14 @@ def one_d_filtering_process(img, size, sigma):
     k_1d_vertical = k_1d.reshape(-1, 1)    # Nx1
 
     # horizontal 1D cross-correlation 수행
-    img_only_horizontal = cross_correlation_1d(img, k_1d_horizontal)
-    
+    img_only_horizontal = cross_correlation_2d(img, k_1d_horizontal)
+
     # vertical 1D cross-correlation 수행
-    filtered_img_float = cross_correlation_1d(img_only_horizontal, k_1d_vertical)
-    
+    filtered_img_float = cross_correlation_2d(img_only_horizontal, k_1d_vertical)
+
     # 정규화 및 uint8 변환
     normalized_img = cv2.normalize(filtered_img_float, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-    
+
     return normalized_img
 
 
@@ -184,7 +186,7 @@ def main():
     size = 17
     sigma = 6
     imgs = {}
-    print(f"\n=== {size}x{size} s={sigma} case 선택 ===\n")
+    print(f"\n=== {size}x{size} s={sigma} case 선택 ===")
     
     # 2D 가우시안 필터링
     for img, name in zip([lenna, shapes], ['lenna', 'shapes']):

@@ -64,18 +64,23 @@ def thresholding(img, corner):
 
 def non_maximum_suppression_win(R, winSize):
     nms_result = np.zeros_like(R)
-    
+
     # NMS 적용
     for x in range(R.shape[0]):
         for y in range(R.shape[1]):
+            # threshold 체크
+            if R[x, y] <= 0.1:
+                continue
+
             # 윈도우 범위
             x_start = max(0, x - winSize // 2)
             x_end = min(R.shape[0], x + winSize // 2 + 1)
             y_start = max(0, y - winSize // 2)
             y_end = min(R.shape[1], y + winSize // 2 + 1)
             window = R[x_start:x_end, y_start:y_end]
-            # keep if it's the local maximum (>= to tolerate ties) and above threshold
-            if R[x, y] >= np.max(window) and R[x, y] > 0.1:
+
+            # 현재 픽셀이 윈도우 내에서 최대값인지 확인
+            if R[x, y] >= np.max(window):
                 nms_result[x, y] = R[x, y]
 
     return nms_result
